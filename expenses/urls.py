@@ -27,11 +27,6 @@ urlpatterns = [
     path("dashboard/", views.dashboard),
     path("<int:pk>/", views.expense_detail),
 
-    path(
-        "swagger/",
-        schema_view.with_ui("swagger", cache_timeout=0),
-        name="schema-swagger-ui",
-    ),
 
     path(
         "redoc/",
