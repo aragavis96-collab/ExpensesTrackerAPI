@@ -144,7 +144,7 @@ SWAGGER_SETTINGS = {
             "type": "apiKey",
             "name": "Authorization",
             "in": "header",
-            "description": "Enter: Bearer <your_access_token>"
+            "description": "JWT Authorization header using the Bearer scheme. Example: Bearer eyJhbGciOiJIUzI1NiIs..."
         }
     },
     "USE_SESSION_AUTH": False,
