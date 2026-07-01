@@ -4,6 +4,14 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from django.http import JsonResponse
+
+def home(request):
+    return JsonResponse({
+        "message": "Expense Tracker API",
+        "docs": "/swagger/"
+    })
+
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -18,7 +26,9 @@ schema_view = get_schema_view(
 urlpatterns = [
     path("admin/", admin.site.urls),
 
-    path("", include("expenses.urls")),
+    path("", home),
+    
+    path("api/", include("expenses.urls")),
     path("accounts/", include("accounts.urls")),
 
     path(
