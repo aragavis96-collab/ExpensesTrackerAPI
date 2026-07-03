@@ -1,7 +1,7 @@
 from datetime import date
 
 from django.db.models import Sum
-
+from rest_framework.views import APIView
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
@@ -151,3 +151,36 @@ def dashboard(request):
         ).aggregate(total=Sum("amount"))["total"] or 0,
         "category_summary": category_data,
     })
+
+class ExpenseListCreateView(APIView):
+    
+    def get(self, request):
+        category = request.GET.get("category")
+        search = request.GET.get("search")
+
+        expenses = Expense.objects.filter(
+            user=request.user
+        ).order_by("-created_at")
+
+        if category:
+            expenses = expenses.filter(category=category)
+
+        if search:
+            expenses = expenses.filter(title__icontains=search)
+
+        paginator = PageNumberPagination()
+        paginator.page_size = 5
+
+        result_page = paginator.paginate_queryset(expenses, request)
+        serializer = ExpenseSerializer(result_page, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
+
+    def post(self, request):
+        serializer = ExpenseSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
