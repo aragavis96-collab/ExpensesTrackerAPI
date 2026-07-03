@@ -7,6 +7,7 @@ from django.db.models import Sum
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
+from drf_yasg.utils import swagger_auto_schema
 
 
 @api_view(["GET", "POST"])
@@ -88,12 +89,18 @@ def category_summary(request):
 
     return Response(data)
 
+@swagger_auto_schema(
+    method="put",
+    request_body=ExpenseSerializer,
+    responses={200: ExpenseSerializer},
+)
+
 @api_view(["GET", "PUT", "DELETE"])
 @permission_classes([IsAuthenticated])
 def expense_detail(request, pk):
 
     try:
-        expense = Expense.objects.get(pk=pk)
+        expense = Expense.objects.get(pk=pk, user=request.user)
     except Expense.DoesNotExist:
         return Response({"error": "Expense not found"})
 
