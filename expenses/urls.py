@@ -1,32 +1,28 @@
 from django.urls import path
 from . import views
-from django.contrib import admin
-from django.urls import path, include
 
 from rest_framework import permissions
-
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+
 
 schema_view = get_schema_view(
     openapi.Info(
         title="Expense Tracker API",
         default_version="v1",
-        description="Expense Tracker REST API built using Django REST Framework",
-        contact=openapi.Contact(email="ragavishre@gmail.com"),
+        description="Expense Tracker REST API",
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = [
-    path("", views.expense_list),
+    path("", views.expense_list, name="expense-list"),
+    path("<int:pk>/", views.expense_detail, name="expense-detail"),
     path("summary/", views.expense_summary),
     path("monthly-summary/", views.monthly_summary),
     path("category-summary/", views.category_summary),
     path("dashboard/", views.dashboard),
-    path("<int:pk>/", views.expense_detail),
-
 
     path(
         "redoc/",
