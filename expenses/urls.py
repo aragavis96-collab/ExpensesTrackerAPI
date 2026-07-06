@@ -17,8 +17,8 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path("", views.expense_list, name="expense-list"),
-    path("<int:pk>/", views.expense_detail, name="expense-detail"),
+    path("", views.ExpenseListCreateView.as_view(), name="expense-list"),
+    path("<int:pk>/", views.ExpenseDetailView.as_view(), name="expense-detail"),
     path("summary/", views.expense_summary),
     path("monthly-summary/", views.monthly_summary),
     path("category-summary/", views.category_summary),
