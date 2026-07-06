@@ -1,24 +1,22 @@
 # Expense Tracker REST API
 
-A RESTful Expense Tracker API built using Django REST Framework with JWT Authentication.
+A production-ready Expense Tracker REST API built with Django REST Framework. The application supports secure JWT authentication, expense management, analytics endpoints, pagination, filtering, and interactive API documentation using Swagger.
 
 ## Features
 
 - User Registration
-- User Login (JWT Authentication)
-- Create Expense
-- View All Expenses
-- View Single Expense
-- Update Expense
-- Delete Expense
+- JWT Authentication (Login & Refresh Token)
+- Create, Read, Update and Delete Expenses (CRUD)
 - Expense Summary
-- Monthly Summary
-- Category Summary
-- Dashboard API
+- Monthly Expense Summary
+- Category-wise Expense Summary
+- Dashboard Analytics
 - Pagination
-- Search & Category Filter
+- Search Expenses
+- Filter by Category
 - Swagger API Documentation
 - Postman Tested
+- Render Deployment
 
 ## Tech Stack
 
@@ -26,33 +24,49 @@ A RESTful Expense Tracker API built using Django REST Framework with JWT Authent
 - Django
 - Django REST Framework
 - SQLite
-- JWT (SimpleJWT)
+- JWT Authentication (SimpleJWT)
 - Swagger (drf-yasg)
 - Postman
-- Git & GitHub
+- Git
+- GitHub
+- Render
+
+## Live Demo
+
+**API:**  
+https://expensestrackerapi-1.onrender.com/
+
+**Swagger UI:**  
+https://expensestrackerapi-1.onrender.com/swagger/
 
 ## API Endpoints
 
 ### Authentication
 
-- POST `/accounts/register/`
-- POST `/accounts/login/`
-- POST `/accounts/refresh/`
+| Method | Endpoint |
+|---------|----------|
+| POST | `/accounts/register/` |
+| POST | `/accounts/login/` |
+| POST | `/accounts/refresh/` |
 
 ### Expenses
 
-- GET `/`
-- POST `/`
-- GET `/<id>/`
-- PUT `/<id>/`
-- DELETE `/<id>/`
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/` |
+| POST | `/api/` |
+| GET | `/api/<id>/` |
+| PUT | `/api/<id>/` |
+| DELETE | `/api/<id>/` |
 
 ### Reports
 
-- GET `/summary/`
-- GET `/monthly-summary/`
-- GET `/category-summary/`
-- GET `/dashboard/`
+| Method | Endpoint |
+|---------|----------|
+| GET | `/api/summary/` |
+| GET | `/api/monthly-summary/` |
+| GET | `/api/category-summary/` |
+| GET | `/api/dashboard/` |
 
 ## Installation
 
